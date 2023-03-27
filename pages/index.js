@@ -20,6 +20,7 @@ class NFTLogin extends Component {
         super(props)
         this.state = {
             wallet: "",
+            notAgree: true,
             storageSize: 1,
             chain: null,
             connected: false,
@@ -42,6 +43,16 @@ class NFTLogin extends Component {
     scrollTo = () => {
         const divElement = document.getElementById('credentials');
         divElement.scrollIntoView({behavior: 'smooth'});
+    }
+    checkboxHandler = () => {
+        this.setState({
+            notAgree: !this.state.notAgree
+        })
+        console.log("asffsa");
+        // if agree === true, it will be set to false
+        // if agree === false, it will be set to true
+        // this.setState({copySuccess: "Failed to copy!"})
+        // Don't miss the exclamation mark
     }
     onHandleChangeNumeric = e => {
 
@@ -218,10 +229,17 @@ class NFTLogin extends Component {
                                 <div className="mt-10 flex items-center justify-center gap-x-6">
                                     {!wallet && (
                                         <div>
+                                            <p>
+                                                <input onChange={this.checkboxHandler} id="agree-checkbox" type="checkbox" value=""
+                                                       className="w-4 h-4 text-honey-pollinationx bg-gray-100 border-gray-300 rounded focus:ring-honey-pollinationx dark:focus:ring-honey-pollinationx dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                                    <label htmlFor="agree-checkbox"
+                                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"> I agree to <a className="text-honey-pollinationx" target="_blank" href="https://github.com/immu3-io/static-assets/raw/main/pdf/2023-02-20_CR_Systems_Privacy_Policy.pdf">Privacy Policy</a> and <a className="text-honey-pollinationx" target="_blank" href="https://github.com/immu3-io/static-assets/raw/main/pdf/2023-02-20_CR_Systems_Website_Terms.pdf">Software Terms</a></label>
+                                            </p>
                                             <button
+                                                disabled={this.state.notAgree}
                                                 type="button"
                                                 onClick={this.connectWallet}
-                                                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-black-pollinationx bg-white hover:bg-honey-pollinationx hover:text-black-pollinationx focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                className="mt-5 disabled:opacity-25 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-black-pollinationx bg-white hover:bg-honey-pollinationx hover:text-black-pollinationx focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                             >
                                                 Connect Wallet
                                             </button>
