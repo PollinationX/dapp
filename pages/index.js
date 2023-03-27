@@ -233,7 +233,7 @@ class NFTLogin extends Component {
                                                 <input onChange={this.checkboxHandler} id="agree-checkbox" type="checkbox" value=""
                                                        className="w-4 h-4 text-honey-pollinationx bg-gray-100 border-gray-300 rounded focus:ring-honey-pollinationx dark:focus:ring-honey-pollinationx dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
                                                     <label htmlFor="agree-checkbox"
-                                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"> I agree to <a className="text-honey-pollinationx" target="_blank" href="https://github.com/immu3-io/static-assets/raw/main/pdf/2023-02-20_CR_Systems_Privacy_Policy.pdf">Privacy Policy</a> and <a className="text-honey-pollinationx" target="_blank" href="https://github.com/immu3-io/static-assets/raw/main/pdf/2023-02-20_CR_Systems_Website_Terms.pdf">Software Terms</a></label>
+                                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"> I agree to <a className="text-honey-pollinationx" target="_blank" href="https://github.com/immu3-io/static-assets/raw/main/pdf/2023-02-20_CR_Systems_Privacy_Policy.pdf">Privacy Policy</a> and <a className="text-honey-pollinationx" target="_blank" href="https://github.com/immu3-io/static-assets/raw/main/pdf/2023-03-13_CR_Systems_dMail_dChat_w3xshare_Software_Terms.pdf">Software Terms</a></label>
                                             </p>
                                             <button
                                                 disabled={this.state.notAgree}
