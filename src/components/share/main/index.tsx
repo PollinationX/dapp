@@ -34,7 +34,7 @@ const Main: FC = () => {
     })
   }
   return (
-    <div className='h-max pt-14 sm:ml-64 bg-neutral-50 dark:bg-neutral-800 mt-16'>
+    <div className='h-max pt-14 sm:ml-64 bg-neutral-50 dark:bg-neutral-800 mt-16 p-52'>
       <h1 className='text-4xl font-extrabold dark:text-pollinationx-honey text-center mb-10'>{t('yourPxNftCollection')}</h1>
       <div className='grid grid-cols-3 gap-3'>
         {account.nfts
