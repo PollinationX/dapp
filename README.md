@@ -1,6 +1,6 @@
 # To Run
 
 ```bash
-# will start up on localhost:3000
+# will start up on localhost
 npm run dev
 ```
