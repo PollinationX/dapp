@@ -1,27 +1,28 @@
-const colors = require('tailwindcss/colors')
-const defaultTheme = require('tailwindcss/defaultTheme')
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    './components/**/**/*.js'
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite-react/**/*.js",
+    "./pages/**/*.{ts,tsx}",
+    "./public/**/*.html",
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
       colors: {
-        'black-pollinationx': '#222222',
-        'grey-pollinationx': '#888888',
-        'honey-pollinationx': '#FAB432',
+        pollinationx: {
+          "black":"#222222",
+          "grey":"#888888",
+          "honey":"#FAB432",
+          "purple":"#888888",
+        }
+      },
+      fontFamily: {
+        Metropolis: ['var(--font-metropolis)']
       },
     },
   },
   plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
+    require("flowbite/plugin")
   ],
 }

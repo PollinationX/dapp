@@ -1,25 +1,23 @@
+const nextTranslate = require('next-translate-plugin')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: false,
-    env: {
-      NFT_COLLECTION_CONTRACT: process.env.NFT_COLLECTION_CONTRACT,
-      GOERLI_ALCHEMY_API_URL: process.env.GOERLI_ALCHEMY_API_URL,
-      API_ENDPOINT: process.env.API_ENDPOINT,
-      MINIMUM_STORAGE: process.env.MINIMUM_STORAGE,
-      STORAGE_PRICE: process.env.STORAGE_PRICE,
-      NFT_COLLECTION_URL: process.env.NFT_COLLECTION_URL
-    },
-    future: {
-      webpack5: true
-    },
-    webpack(config) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false
-      }
+  reactStrictMode: false,
+  swcMinify: true,
+  env: {
+    ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
+    INDEXED_DB_NAME: process.env.INDEXED_DB_NAME,
+    INDEXED_DB_STORE: process.env.INDEXED_DB_STORE,
+    INDEXED_DB_SECRET: process.env.INDEXED_DB_SECRET,
+    BTFS_URL: process.env.BTFS_URL,
+    WALLET_CONNECT_PROJECT_ID: process.env.WALLET_CONNECT_PROJECT_ID,
+    NFT_COLLECTION_CONTRACT: process.env.NFT_COLLECTION_CONTRACT
+  },
+  webpack: config => {
+    config.resolve.fallback = { fs: false }
 
-      return config
-    }
-  }
+    return config
+  },
+  ...nextTranslate()
+}
 
-  module.exports = nextConfig
+module.exports = nextConfig
