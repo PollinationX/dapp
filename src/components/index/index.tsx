@@ -117,7 +117,7 @@ const Index: FC = () => {
                           </div>
                           <a
                             target='_blank'
-                            href='http://wiki.pollinaitonx.io/'
+                            href='https://wiki.pollinaitonx.io/'
                             className='hover:text-pollinationx-honey inline-block px-6 pt-1 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out focus:outline-none focus:ring-0'
                           >
                             {t('readMore')} <span aria-hidden='true'>→</span>
