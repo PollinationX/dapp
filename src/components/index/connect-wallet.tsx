@@ -56,6 +56,12 @@ const ConnectWallet: FC<IConnectWalletProps> = ({ show, onClose }) => {
   }
 
   useEffect(() => {
+    if (!show) {
+      setAgreeState(false);
+    }
+  }, [show]);
+
+  useEffect(() => {
     !isConnected || !indexedDB || handleConnectedAccount()
   }, [isConnected, indexedDB])
 
