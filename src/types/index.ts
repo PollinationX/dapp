@@ -71,6 +71,8 @@ export interface IGetNft extends IError {
   nfts?: INft[]
   success?: boolean
   totalCount?: number
+  contractAddress?: string
+  contractOwner?: string
 }
 
 export interface INft {
@@ -92,6 +94,8 @@ export interface IAccount {
   address?: string
   loggedIn?: boolean
   locale?: string
+  contractAddress?: string
+  contractOwner?: string
   defaultNftIndex?: number
   nfts?: INft[]
 }

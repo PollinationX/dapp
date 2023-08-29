@@ -32,14 +32,20 @@ const ConnectWallet: FC<IConnectWalletProps> = ({ show, onClose }) => {
           account.address = address
           account.locale = appConfig.locale
           account.defaultNftIndex = 0
+          account.contractAddress = null
+          account.contractOwner = null
         } else {
           account.address = currentAccount.address
           account.locale = currentAccount.locale
           account.defaultNftIndex = currentAccount.defaultNftIndex
+          account.contractAddress = currentAccount.contractAddress
+          account.contractOwner = currentAccount.contractOwner
           account.nfts = currentAccount.nfts
         }
         const nftsRes = await getNfts(address)
         if (!nftsRes?.error) {
+          account.contractAddress = nftsRes.contractAddress
+          account.contractOwner = nftsRes.contractOwner
           account.nfts = nftsRes.nfts
           await indexedDB.put(account)
           await setSigner()

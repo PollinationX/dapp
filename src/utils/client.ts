@@ -1,15 +1,35 @@
 import axios, { AxiosInstance } from 'axios'
-import { btfsConfig } from '@/config'
+import { pollinationXConfig } from '@/config'
 import { polygonMumbai } from 'wagmi/chains'
 import { configureChains, createClient } from 'wagmi'
-import { EthereumClient, w3mConnectors } from '@web3modal/ethereum'
-import { alchemyProvider } from '@wagmi/core/providers/alchemy'
+import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
+import { Chain } from 'wagmi'
+
+const artheraTestnet = {
+  id: 10243,
+  name: 'Arthera Testnet',
+  network: 'Arthera Testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Arthera Testnet',
+    symbol: 'AA'
+  },
+  rpcUrls: {
+    public: { http: ['https://rpc-test.arthera.net/'] },
+    default: { http: ['https://rpc-test.arthera.net/'] }
+  },
+  blockExplorers: {
+    etherscan: { name: 'Arthera Testnet', url: 'https://explorer-test.arthera.net' },
+    default: { name: 'Arthera Testnet', url: 'https://explorer-test.arthera.net' }
+  }
+} as const satisfies Chain
+
 const projectId = process.env.WALLET_CONNECT_PROJECT_ID
-const chains = [polygonMumbai]
-const { provider, webSocketProvider } = configureChains(chains, [alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY })])
+const chains = [polygonMumbai, artheraTestnet]
+const { provider, webSocketProvider } = configureChains(chains, [w3mProvider({ projectId: process.env.WALLET_CONNECT_PROJECT_ID })])
 
 export const client = createClient({
-  autoConnect: false,
+  autoConnect: true,
   connectors: w3mConnectors({
     chains,
     version: 2,
@@ -21,5 +41,5 @@ export const client = createClient({
 export const ethereumClient: EthereumClient = new EthereumClient(client, chains)
 
 export const httpClient: AxiosInstance = axios.create({
-  baseURL: btfsConfig.url
+  baseURL: pollinationXConfig.url
 })

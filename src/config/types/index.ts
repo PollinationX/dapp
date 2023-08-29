@@ -6,10 +6,6 @@ export interface IAuthGuardOptions {
   publicPaths: string[]
 }
 
-export interface IBtfsConfig {
-  url: string
-}
-
 export interface INetworkOptions {
   explorerUrl: string
 }
@@ -24,7 +20,6 @@ interface IPollinationXAuthOptions {
 
 export interface IPollinationXConfig {
   url: string
-  token: string
   auth: IPollinationXAuthOptions
   newNft: IPollinationXAuthOptions
 }

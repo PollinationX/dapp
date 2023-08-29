@@ -1,4 +1,4 @@
-import { IAppConfig, IAuthGuardOptions, IBtfsConfig, INetworkOptions, INftConfig, IPollinationXConfig } from '@/config/types'
+import { IAppConfig, IAuthGuardOptions, INetworkOptions, INftConfig, IPollinationXConfig } from '@/config/types'
 import { ThemeCtrlState } from '@web3modal/core/dist/_types/src/types/controllerTypes'
 
 export const themeConfig: ThemeCtrlState = {
@@ -16,11 +16,6 @@ export const appConfig: IAppConfig = {
 export const authGuardOptions: IAuthGuardOptions = {
   publicPaths: ['/']
 }
-
-export const btfsConfig: IBtfsConfig = {
-  url: process.env.BTFS_URL
-}
-
 export const networkOptions: INetworkOptions = {
   explorerUrl: 'https://mumbai.polygonscan.com/tx/'
 }
@@ -30,8 +25,7 @@ export const nftConfig: INftConfig = {
 }
 
 export const pollinationXConfig: IPollinationXConfig = {
-  url: process.env.POLLINATIONX_URL,
-  token: process.env.POLLINATIONX_TOKEN,
+  url: process.env.STORAGE_NODE_URL,
   auth: {
     message: 'This request will check your PollinationX (PX) storage NFTs and it will not trigger a blockchain transaction or cost any gas fees.'
   },

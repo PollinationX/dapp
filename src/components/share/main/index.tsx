@@ -19,8 +19,8 @@ const Main: FC = () => {
       updatedState[id] = true
       return updatedState
     })
-    const nftMetadataRes = await getNftMetadata(Number(account.nfts[id].id.tokenId))
-    if (!nftMetadataRes?.error) {
+    const nftMetadataRes = await getNftMetadata(Number(account.nfts[id].id.tokenId), account.contractAddress)
+    if (!nftMetadataRes?.error && nftMetadataRes?.media.length > 0) {
       account.nfts[id].media = nftMetadataRes.media
       account.nfts[id].metadata.attributes = nftMetadataRes.rawMetadata.attributes
       account.nfts[id].timeLastUpdated = nftMetadataRes.timeLastUpdated

@@ -42,8 +42,8 @@ const Sidebar: FC<ISidebarProps> = ({ nfts }) => {
       const nftsRes = await getNfts(address)
       if (!nftsRes?.error) {
         account.nfts = nftsRes.nfts
-        const nftMetadataRes = await getNftMetadata(Number(account.nfts[account.defaultNftIndex].id.tokenId))
-        if (!nftMetadataRes?.error) {
+        const nftMetadataRes = await getNftMetadata(Number(account.nfts[account.defaultNftIndex].id.tokenId), account.contractAddress)
+        if (!nftMetadataRes?.error && nftMetadataRes?.media.length > 0) {
           account.nfts[account.defaultNftIndex].media = nftMetadataRes.media
           account.nfts[account.defaultNftIndex].metadata.attributes = nftMetadataRes.rawMetadata.attributes
           account.nfts[account.defaultNftIndex].timeLastUpdated = nftMetadataRes.timeLastUpdated
@@ -56,8 +56,8 @@ const Sidebar: FC<ISidebarProps> = ({ nfts }) => {
 
   const handleRefreshNftMetadataOnClick = async (): Promise<void> => {
     setRefreshMetadataProgress(true)
-    const nftMetadataRes = await getNftMetadata(Number(account.nfts[account.defaultNftIndex].id.tokenId))
-    if (!nftMetadataRes?.error) {
+    const nftMetadataRes = await getNftMetadata(Number(account.nfts[account.defaultNftIndex].id.tokenId), account.contractAddress)
+    if (!nftMetadataRes?.error && nftMetadataRes?.media.length > 0) {
       account.nfts[account.defaultNftIndex].media = nftMetadataRes.media
       account.nfts[account.defaultNftIndex].metadata.attributes = nftMetadataRes.rawMetadata.attributes
       account.nfts[account.defaultNftIndex].timeLastUpdated = nftMetadataRes.timeLastUpdated

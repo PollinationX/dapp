@@ -7,8 +7,9 @@ import { BigNumber } from 'ethers'
 import { getWei } from '@/utils/helper'
 import { toastify } from '@/utils/toastify'
 import { doWriteContract } from '@/utils/contract'
-import { nftConfig } from '@/config'
 import { Card, Modal, Spinner, Tabs } from 'flowbite-react'
+import { useAccountContext } from '@/contexts/account/provider'
+import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
 interface IBuyNftModalProps {
   show: boolean
@@ -22,6 +23,11 @@ const BuyNftModal: FC<IBuyNftModalProps> = ({ show, onClose, tokenId, nftSize })
   const [getNfts, setGetNfts] = useState<boolean>(false)
   const [openSyncBackdrop, setOpenSyncBackdrop] = useState<boolean>(false)
   const [syncBackdropText, setSyncBackdropText] = useState<string>('')
+  const { account } = useAccountContext()
+  const [packageQuota, setPackageQuota] = useState('')
+  const [price, setPrice] = useState('')
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const [nftPackages, setNftPackages] = useState<INftPackage[]>([
     { id: 1, size: 5, price: 0.005, disabled: false, processing: false, done: false },
     { id: 2, size: 10, price: 0.01, disabled: false, processing: false, done: false },
@@ -40,13 +46,13 @@ const BuyNftModal: FC<IBuyNftModalProps> = ({ show, onClose, tokenId, nftSize })
           processing: nftPackageObj.id === nftPackage.id
         }))
       )
-      const upgradeTokenPackageRes = await doWriteContract(
-        'upgradeTokenPackage',
-        [parseInt(tokenId), nftPackage.id],
-        { value: BigNumber.from(getWei(nftPackage.price)), gasLimit: BigNumber.from(1000000) },
-        nftConfig.contract,
-        abi
-      )
+        const upgradeTokenPackageRes = await doWriteContract(
+            'upgradeTokenPackage',
+            [parseInt(tokenId), nftPackage.id],
+            { value: BigNumber.from(getWei(nftPackage.price)), gasLimit: BigNumber.from(4000000) },
+            account.nfts[account.defaultNftIndex].contract.address,
+            abi
+        )
       if (!upgradeTokenPackageRes?.error) {
         setSyncBackdropText(t('waitingForBlockchainConfirmation'))
         await upgradeTokenPackageRes.wait(1)
@@ -83,7 +89,7 @@ const BuyNftModal: FC<IBuyNftModalProps> = ({ show, onClose, tokenId, nftSize })
         processing: nftPackageObj.id === nftPackage.id
       }))
     )
-    const mintRes = await doWriteContract('mint', [nftPackage.id], { value: BigNumber.from(getWei(nftPackage.price)) }, nftConfig.contract, abi)
+    const mintRes = await doWriteContract('mint', [nftPackage.id], { value: BigNumber.from(getWei(nftPackage.price)) }, account.nfts[account.defaultNftIndex].contract.address, abi)
     if (!mintRes?.error) {
       setSyncBackdropText(t('waitingForBlockchainConfirmation'))
       await mintRes.wait(1)
@@ -109,6 +115,32 @@ const BuyNftModal: FC<IBuyNftModalProps> = ({ show, onClose, tokenId, nftSize })
     }
     setOpenSyncBackdrop(false)
   }
+    const formatValue = (value) => {
+        return value.replace(',', '.');
+    };
+
+    const handleAddNewPackage = async () => {
+        if (price && packageQuota) {
+            const formattedPrice = formatValue(price);
+            console.log(BigNumber.from(getWei(formattedPrice)))
+
+            setOpenSyncBackdrop(true)
+            setSyncBackdropText(t('waitingForUserConfirmation'))
+
+            const addNewRes = await doWriteContract('addNewPackage', [BigNumber.from(getWei(formattedPrice)), packageQuota], "", account.nfts[account.defaultNftIndex].contract.address, abi)
+            if (!addNewRes?.error) {
+                setSyncBackdropText(t('waitingForBlockchainConfirmation'))
+                await addNewRes.wait(1)
+                console.log('Addedd:', { packageQuota, price });
+                setPackageQuota('');
+                setPrice('');
+                setOpenSyncBackdrop(false)
+                setFormSubmitted(true)
+            }
+
+            console.log('Submitted:', { packageQuota, formattedPrice });
+        }
+    };
 
   return (
     <>
@@ -180,6 +212,56 @@ const BuyNftModal: FC<IBuyNftModalProps> = ({ show, onClose, tokenId, nftSize })
                   ))}
                 </div>
               </Tabs.Item>
+                {account.address == account.contractOwner ? (
+              <Tabs.Item title={t('addNewPackage')}>
+                  {formSubmitted ? (
+                      <div>
+                          <p className='text-gray-900 dark:text-white'>Form submitted successfully!</p>
+                      </div>
+                  ) : null}
+                <div className='grid grid-cols-2 gap-2'>
+                    <form className="flex max-w-md flex-col gap-4">
+                        <div>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="price1"
+                                    value="Price"
+                                />
+                            </div>
+                            <TextInput
+                                id="price1"
+                                required
+                                onBlur={(e) => setPrice(e.target.value)}
+                                type="text"
+                            />
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="size1"
+                                    value="Size"
+                                />
+                            </div>
+                            <TextInput
+                                id="size1"
+                                required
+                                onBlur={(e) => setPackageQuota(e.target.value)}
+                                type="text"
+                            />
+                        </div>
+                        <Button
+                            onClick={() => handleAddNewPackage()}
+                            type='button'
+                        >
+                            Submit
+                        </Button>
+                    </form>
+                </div>
+              </Tabs.Item>
+                ) :
+                    <Tabs.Item disabled title="">
+                    </Tabs.Item>
+                }
             </Tabs.Group>
           </div>
         </Modal.Body>
