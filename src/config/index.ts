@@ -1,4 +1,4 @@
-import { IAppConfig, IAuthGuardOptions, INetworkOptions, INftConfig, IPollinationXConfig } from '@/config/types'
+import { IAppConfig, IAuthGuardOptions, IPollinationXConfig } from '@/config/types'
 import { ThemeCtrlState } from '@web3modal/core/dist/_types/src/types/controllerTypes'
 
 export const themeConfig: ThemeCtrlState = {
@@ -15,13 +15,6 @@ export const appConfig: IAppConfig = {
 
 export const authGuardOptions: IAuthGuardOptions = {
   publicPaths: ['/']
-}
-export const networkOptions: INetworkOptions = {
-  explorerUrl: 'https://mumbai.polygonscan.com/tx/'
-}
-
-export const nftConfig: INftConfig = {
-  contract: process.env.NFT_COLLECTION_CONTRACT
 }
 
 export const pollinationXConfig: IPollinationXConfig = {
