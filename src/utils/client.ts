@@ -62,8 +62,27 @@ const immu3Testnet = {
   }
 } as const satisfies Chain
 
+const oasisSapphireTestnet = {
+  id: 23295,
+  name: 'Oasis Sapphire Testnet',
+  network: 'Oasis Sapphire Testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'oasisSapphireTEST',
+    symbol: 'oasisSapphireTEST'
+  },
+  rpcUrls: {
+    public: { http: ['https://testnet.sapphire.oasis.dev/'] },
+    default: { http: ['https://testnet.sapphire.oasis.dev/'] }
+  },
+  blockExplorers: {
+    etherscan: { name: 'Oasis Sapphire Testnet', url: 'https://testnet.explorer.sapphire.oasis.dev' },
+    default: { name: 'Oasis Sapphire Testnet', url: 'https://testnet.explorer.sapphire.oasis.dev' }
+  }
+} as const satisfies Chain
+
 const projectId = process.env.WALLET_CONNECT_PROJECT_ID
-const chains = [polygonMumbai, artheraTestnet, sepolia, immu3Testnet]
+const chains = [polygonMumbai, artheraTestnet, sepolia, immu3Testnet, oasisSapphireTestnet]
 const { provider, webSocketProvider } = configureChains(chains, [w3mProvider({ projectId: process.env.WALLET_CONNECT_PROJECT_ID })])
 
 export const client = createClient({
