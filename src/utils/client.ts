@@ -119,8 +119,28 @@ const beresheetEVM = {
   }
 } as const satisfies Chain
 
+const mantleTestnet = {
+  id: 5001,
+  testnet: true,
+  name: 'MantleTestnet',
+  network: 'MantleTestnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'MNT',
+    symbol: 'MNT'
+  },
+  rpcUrls: {
+    public: { http: ['https://rpc.testnet.mantle.xyz/'] },
+    default: { http: ['https://rpc.testnet.mantle.xyz/'] }
+  },
+  blockExplorers: {
+    etherscan: { name: 'Mantle Testnet', url: 'https://explorer.testnet.mantle.xyz' },
+    default: { name: 'Mantle Testnet', url: 'https://explorer.testnet.mantle.xyz' }
+  }
+} as const satisfies Chain
+
 const projectId = process.env.WALLET_CONNECT_PROJECT_ID
-const chains = [polygonMumbai, artheraTestnet, sepolia, immu3Testnet, oasisSapphireTestnet, metisGoerliTestnet, beresheetEVM]
+const chains = [polygonMumbai, artheraTestnet, sepolia, immu3Testnet, oasisSapphireTestnet, metisGoerliTestnet, beresheetEVM, mantleTestnet]
 const { provider, webSocketProvider } = configureChains(chains, [w3mProvider({ projectId: process.env.WALLET_CONNECT_PROJECT_ID })])
 
 export const client = createClient({
