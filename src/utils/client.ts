@@ -120,22 +120,22 @@ const beresheetEVM = {
 } as const satisfies Chain
 
 const mantleTestnet = {
-  id: 5001,
+  id: 5003,
   testnet: true,
-  name: 'MantleTestnet',
-  network: 'MantleTestnet',
+  name: 'MantleSepoliaTestnet',
+  network: 'MantleSepoliaTestnet',
   nativeCurrency: {
     decimals: 18,
     name: 'MNT',
     symbol: 'MNT'
   },
   rpcUrls: {
-    public: { http: ['https://rpc.testnet.mantle.xyz/'] },
-    default: { http: ['https://rpc.testnet.mantle.xyz/'] }
+    public: { http: ['https://rpc.sepolia.mantle.xyz/'] },
+    default: { http: ['https://rpc.sepolia.mantle.xyz/'] }
   },
   blockExplorers: {
-    etherscan: { name: 'Mantle Testnet', url: 'https://explorer.testnet.mantle.xyz' },
-    default: { name: 'Mantle Testnet', url: 'https://explorer.testnet.mantle.xyz' }
+    etherscan: { name: 'Mantle Sepolia Testnet', url: 'https://explorer.sepolia.mantle.xyz' },
+    default: { name: 'Mantle Sepolia Testnet', url: 'https://explorer.sepolia.mantle.xyz' }
   }
 } as const satisfies Chain
 
