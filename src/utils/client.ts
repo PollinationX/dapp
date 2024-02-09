@@ -159,8 +159,48 @@ const zetachainTestnet = {
   }
 } as const satisfies Chain
 
+const fantomTestnet = {
+  id: 4002,
+  testnet: true,
+  name: 'FantomTestnet',
+  network: 'FantomTestnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'FTM',
+    symbol: 'FTM'
+  },
+  rpcUrls: {
+    public: { http: ['https://rpc.testnet.fantom.network/'] },
+    default: { http: ['https://rpc.testnet.fantom.network/'] }
+  },
+  blockExplorers: {
+    etherscan: { name: 'Fantom Testnet', url: 'https://faucet.fantom.network' },
+    default: { name: 'Fantom Testnet', url: 'https://faucet.fantom.network' }
+  }
+} as const satisfies Chain
+//
+const gnosisTestnet = {
+  id: 10200,
+  testnet: true,
+  name: 'GnosisTestnet',
+  network: 'GnosisTestnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'xDAI',
+    symbol: 'xDAI'
+  },
+  rpcUrls: {
+    public: { http: ['https://rpc.chiadochain.net/'] },
+    default: { http: ['https://rpc.chiadochain.net/'] }
+  },
+  blockExplorers: {
+    etherscan: { name: 'Gnosis Testnet', url: 'https://blockscout.chiadochain.net' },
+    default: { name: 'Gnosis Testnet', url: 'https://blockscout.chiadochain.net' }
+  }
+} as const satisfies Chain
+
 const projectId = process.env.WALLET_CONNECT_PROJECT_ID
-const chains = [polygonMumbai, artheraTestnet, sepolia, immu3Testnet, oasisSapphireTestnet, metisGoerliTestnet, beresheetEVM, mantleTestnet, zetachainTestnet]
+const chains = [polygonMumbai, artheraTestnet, sepolia, immu3Testnet, oasisSapphireTestnet, metisGoerliTestnet, beresheetEVM, mantleTestnet, zetachainTestnet,fantomTestnet,gnosisTestnet]
 const { provider, webSocketProvider } = configureChains(chains, [w3mProvider({ projectId: process.env.WALLET_CONNECT_PROJECT_ID })])
 
 export const client = createClient({
