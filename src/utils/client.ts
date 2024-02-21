@@ -81,22 +81,23 @@ const oasisSapphireTestnet = {
   }
 } as const satisfies Chain
 
-const metisGoerliTestnet = {
-  id: 599,
-  name: 'Metis Goerli Testnet',
-  network: 'Metis Goerli Testnet',
+const metisSepoliaTestnet = {
+  id: 59901,
+  testnet: true,
+  name: 'Metis Sepolia Testnet',
+  network: 'Metis Sepolia Testnet',
   nativeCurrency: {
     decimals: 18,
     name: 'tMETIS',
     symbol: 'tMETIS'
   },
   rpcUrls: {
-    public: { http: ['https://goerli.gateway.metisdevops.link/'] },
-    default: { http: ['https://goerli.gateway.metisdevops.link/'] }
+    public: { http: ['https://sepolia.rpc.metisdevops.link/'] },
+    default: { http: ['https://sepolia.rpc.metisdevops.link/'] }
   },
   blockExplorers: {
-    etherscan: { name: 'Metis Goerli Testnet', url: 'https://goerli.explorer.metisdevops.link' },
-    default: { name: 'Metis Goerli Testnet', url: 'https://goerli.explorer.metisdevops.link' }
+    etherscan: { name: 'Metis Sepolia Testnet', url: 'https://sepolia.explorer.metisdevops.link/' },
+    default: { name: 'Metis Sepolia Testnet', url: 'https://sepolia.explorer.metisdevops.link/' }
   }
 } as const satisfies Chain
 
@@ -200,7 +201,7 @@ const gnosisTestnet = {
 } as const satisfies Chain
 
 const projectId = process.env.WALLET_CONNECT_PROJECT_ID
-const chains = [polygonMumbai, artheraTestnet, sepolia, immu3Testnet, oasisSapphireTestnet, metisGoerliTestnet, beresheetEVM, mantleTestnet, zetachainTestnet,fantomTestnet,gnosisTestnet]
+const chains = [polygonMumbai, artheraTestnet, sepolia, immu3Testnet, oasisSapphireTestnet, metisSepoliaTestnet, beresheetEVM, mantleTestnet, zetachainTestnet,fantomTestnet,gnosisTestnet]
 const { provider, webSocketProvider } = configureChains(chains, [w3mProvider({ projectId: process.env.WALLET_CONNECT_PROJECT_ID })])
 
 export const client = createClient({
